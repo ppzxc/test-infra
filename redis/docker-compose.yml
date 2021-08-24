@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+    redis:
+      image: redis:6.2.5-alpine
+      command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+      container_name: redis
+      sysctls:
+        - net.core.somaxconn=1024
+        - net.ipv6.conf.all.disable_ipv6=1
+      ports:
+        - 6379:6379
+      volumes:
+        - ./redis.conf:/usr/local/etc/redis/redis.conf
+        - /etc/localtime:/etc/localtime
+        - ./data:/data
+      environment:
+        - TZ=Asia/Seoul
+      restart: always
+    redis-commander:
+      container_name: redis-commander
+      hostname: redis-commander
+      image: rediscommander/redis-commander:latest
+      restart: always
+      environment:
+        - REDIS_HOSTS=local:redis:6379
+      ports:
+        - 8081:8081
