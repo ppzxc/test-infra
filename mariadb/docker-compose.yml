@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  mariadb:
+    build: .
+    #image: mariadb:10.3
+    restart: always
+    container_name: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      #- MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=test
+      - TZ=Asia/Seoul
+    volumes:
+      - ./data:/var/lib/mysql
+      #- ./log:/var/log/mysql
+      - ./my.cnf:/etc/mysql/my.cnf
+      #- ./my.cnf:/etc/mysql/conf.d/my.cnf

@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.9.4-management-alpine
+    container_name: rabbitmq
+    restart: always
+    environment:
+      - TZ=Asia/Seoul
+      - RABBITMQ_DEFAULT_USER=nanoit
+      - RABBITMQ_DEFAULT_PASS=sksrhd!@34
+    volumes:
+      - ./data:/var/lib/rabbitmq
+      #- /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
+    ports:
+      #- 4369:4369
+      - 5672:5672
+      - 15672:15672
+      #- 15692:15692
+      #- 25672:25672
